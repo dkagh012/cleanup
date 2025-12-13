@@ -39,8 +39,7 @@ $spacing-2xl: 48px;
 $spacing-3xl: 64px;
 
 // 타이포그래피
-$font-family-sans: 'SpoqaHanSansNeo', var(--font-geist-sans), system-ui, sans-serif;
-$font-family-mono: var(--font-geist-mono), 'Courier New', monospace;
+$font-family-sans: "SpoqaHanSansNeo", system-ui, sans-serif;
 
 // 전환 효과
 $transition-fast: 150ms ease;
@@ -51,4 +50,3 @@ $transition-slow: 500ms ease;
 $breakpoint-mobile: 640px;
 $breakpoint-tablet: 968px;
 $breakpoint-desktop: 1200px;
-

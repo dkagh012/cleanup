@@ -1,42 +1,38 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "@/styles/globals.scss";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "VibeCoding 클린업 | 정비된 코드로 성장하세요",
-  description: "바이브코딩으로 만들어진 서비스를 정비된 코드 구조로 리빌딩합니다. 불안정한 구조와 기술 부채를 해결하고, 확장 가능한 아키텍처로 전환하세요.",
-  keywords: ["코드 클린업", "리팩토링", "기술 부채", "바이브코딩", "코드 정비"],
-  openGraph: {
-    title: "VibeCoding 클린업",
-    description: "정비된 코드로 성장하세요",
-    type: "website",
-  },
+    title: "VibeCoding 클린업 | 정비된 코드로 성장하세요",
+    description:
+        "바이브코딩으로 만들어진 서비스를 정비된 코드 구조로 리빌딩합니다. 불안정한 구조와 기술 부채를 해결하고, 확장 가능한 아키텍처로 전환하세요.",
+    keywords: [
+        "코드 클린업",
+        "리팩토링",
+        "기술 부채",
+        "바이브코딩",
+        "코드 정비",
+    ],
+    openGraph: {
+        title: "VibeCoding 클린업",
+        description: "정비된 코드로 성장하세요",
+        type: "website",
+    },
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="ko">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-      </body>
-    </html>
-  );
+    return (
+        <html lang="ko">
+            <body>
+                <Header />
+                <main>{children}</main>
+                <Footer />
+            </body>
+        </html>
+    );
 }

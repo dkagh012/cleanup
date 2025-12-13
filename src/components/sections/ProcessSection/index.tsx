@@ -18,6 +18,9 @@ export default function ProcessSection() {
               <div className={styles.stepContent}>
                 <h3 className={styles.stepTitle}>{step.title}</h3>
                 <p className={styles.stepDescription}>{step.description}</p>
+                {step.details && (
+                  <p className={styles.stepDetails}>{step.details}</p>
+                )}
               </div>
             </div>
           ))}
