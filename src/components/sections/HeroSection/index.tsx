@@ -10,18 +10,20 @@ export default function HeroSection() {
       </div>
 
       <div className={styles.container}>
-        <div className={styles.content}>
+        <div className={styles.content} data-aos="fade-up">
           <h1 className={styles.title}>
-            <span className={styles.titleLine1}>{HERO_CONTENT.title[0]}</span>
-            <span className={styles.titleLine1}>{HERO_CONTENT.title[1]}</span>
+            <span className={styles.titleLine1} data-aos="fade-up" data-aos-delay="100">{HERO_CONTENT.title[0]}</span>
+            <span className={styles.titleLine1} data-aos="fade-up" data-aos-delay="200">{HERO_CONTENT.title[1]}</span>
           </h1>
 
           <p 
             className={styles.description}
             dangerouslySetInnerHTML={{ __html: HERO_CONTENT.description }}
+            data-aos="fade-up"
+            data-aos-delay="300"
           />
 
-          <Link href={HERO_CONTENT.cta.href} className={styles.ctaButton}>
+          <Link href={HERO_CONTENT.cta.href} className={styles.ctaButton} data-aos="fade-up" data-aos-delay="400">
             {HERO_CONTENT.cta.label}
             <svg
               width="16"

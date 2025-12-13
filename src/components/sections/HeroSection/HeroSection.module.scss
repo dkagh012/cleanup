@@ -90,20 +90,62 @@ margin-bottom: 24px;
   }
 }
 
-@media (max-width: $breakpoint-mobile) {
+@media (max-width: $breakpoint-tablet) {
   .hero {
-    padding: 100px $spacing-md $spacing-2xl;
+    padding: 100px 32px 60px;
     min-height: auto;
   }
 
+  .container {
+    left: 32px;
+    bottom: 60px;
+  }
+
+  .titleLine1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
   .description {
-    margin-bottom: $spacing-xl;
+    font-size: 18px;
+    line-height: 28px;
+    margin-bottom: 20px;
+  }
+
+  .ctaButton {
+    width: 200px;
+    height: 56px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .hero {
+    padding: 80px 24px 48px;
+  }
+
+  .container {
+    left: 24px;
+    bottom: 48px;
+  }
+
+  .titleLine1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 16px;
   }
 
   .ctaButton {
     width: 100%;
+    height: 52px;
+    font-size: 16px;
     justify-content: center;
-    padding: $spacing-lg;
+    padding: 0;
   }
 }
 

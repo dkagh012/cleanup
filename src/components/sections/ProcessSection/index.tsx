@@ -6,14 +6,19 @@ export default function ProcessSection() {
   return (
     <section id="process" className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.header}>
+        <div className={styles.header} data-aos="fade-up">
           <h2 className={styles.title}>{PROCESS_SECTION.title}</h2>
           <p className={styles.subtitle}>{PROCESS_SECTION.subtitle}</p>
         </div>
 
         <div className={styles.steps}>
           {PROCESS_SECTION.steps.map((step, index) => (
-            <div key={index} className={styles.step}>
+            <div 
+              key={index} 
+              className={styles.step}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+            >
               <div className={styles.stepNumber}>{step.number}</div>
               <div className={styles.stepContent}>
                 <h3 className={styles.stepTitle}>{step.title}</h3>
@@ -26,7 +31,7 @@ export default function ProcessSection() {
           ))}
         </div>
 
-        <div className={styles.cta}>
+        <div className={styles.cta} data-aos="fade-up">
           <Link href={HERO_CONTENT.cta.href} className={styles.ctaButton}>
             {HERO_CONTENT.cta.label}
             <svg

@@ -94,31 +94,122 @@
 }
 
 @media (max-width: $breakpoint-tablet) {
+    .section {
+        padding: 48px 32px;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        line-height: 22px;
+    }
+
     .steps {
-        grid-template-columns: repeat(2, 1fr);
+        gap: 32px 0;
+        margin-bottom: 40px;
+    }
+
+    .step {
+        width: calc(100% / 2 - 12px);
+        padding: 0 16px;
+        border-right: 1px solid #353535;
+        
+        &:nth-child(2n) {
+            border-right: none;
+        }
+
+        &:nth-child(3n) {
+            border-right: 1px solid #353535;
+        }
+    }
+
+    .stepNumber {
+        font-size: 22px;
+    }
+
+    .stepTitle {
+        font-size: 17px;
+    }
+
+    .stepDescription {
+        font-size: 15px;
+    }
+
+    .stepDetails {
+        font-size: 15px;
+    }
+
+    .cta {
+        margin: 0 32px;
+    }
+
+    .ctaButton {
+        height: 56px;
+        font-size: 18px;
     }
 }
 
 @media (max-width: $breakpoint-mobile) {
     .section {
-        padding: $spacing-2xl $spacing-md;
+        padding: 40px 24px;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        line-height: 20px;
     }
 
     .steps {
-        grid-template-columns: 1fr;
+        gap: 24px 0;
+        margin-bottom: 32px;
     }
 
     .step {
-        padding: $spacing-lg;
+        width: 100%;
+        padding: 0;
+        border-right: none;
+        border-bottom: 1px solid #353535;
+        padding-bottom: 24px;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:nth-child(2n),
+        &:nth-child(3n) {
+            border-right: none;
+        }
     }
 
     .stepNumber {
-        font-size: 1.25rem;
+        font-size: 20px;
+    }
+
+    .stepTitle {
+        font-size: 16px;
+    }
+
+    .stepDescription {
+        font-size: 14px;
+    }
+
+    .stepDetails {
+        font-size: 14px;
+    }
+
+    .cta {
+        margin: 0;
     }
 
     .ctaButton {
-        width: 100%;
-        justify-content: center;
-        padding: $spacing-lg;
+        height: 52px;
+        font-size: 16px;
     }
 }

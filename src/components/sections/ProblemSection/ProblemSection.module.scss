@@ -69,17 +69,65 @@
 }
 
 @media (max-width: $breakpoint-tablet) {
+    .section {
+        padding: 48px 32px;
+    }
+
+    .title {
+        font-size: 22px;
+        line-height: 32px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        line-height: 22px;
+    }
+
     .cards {
         grid-template-columns: 1fr;
+        gap: 24px;
+        padding-top: 24px;
+    }
+
+    .card {
+        padding: 32px 0;
+    }
+
+    .cardTitle {
+        font-size: 17px;
+    }
+
+    .cardDescription {
+        font-size: 15px;
+        line-height: 22px;
     }
 }
 
 @media (max-width: $breakpoint-mobile) {
     .section {
-        padding: $spacing-2xl $spacing-md;
+        padding: 40px 24px;
+    }
+
+    .title {
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        line-height: 20px;
     }
 
     .card {
-        padding: $spacing-xl;
+        padding: 24px 0;
+    }
+
+    .cardTitle {
+        font-size: 16px;
+    }
+
+    .cardDescription {
+        font-size: 14px;
+        line-height: 20px;
     }
 }
