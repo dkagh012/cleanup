@@ -1,0 +1,30 @@
+@import '@/styles/variables.scss';
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  .container{
+    display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 96px;
+        padding: 0 48px;
+  }
+  .link{
+    width: 110px;
+    height: 48px;
+    background-color: #000000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  } 
+}

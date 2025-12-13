@@ -6,19 +6,20 @@ export default function HeroSection() {
   return (
     <section className={styles.hero}>
       <div className={styles.background}>
-        <div className={styles.gradientOrb1}></div>
-        <div className={styles.gradientOrb2}></div>
-        <div className={styles.gridPattern}></div>
+        <video src="/main/main.mp4" autoPlay loop muted playsInline />
       </div>
 
       <div className={styles.container}>
         <div className={styles.content}>
           <h1 className={styles.title}>
             <span className={styles.titleLine1}>{HERO_CONTENT.title[0]}</span>
-            <span className={styles.titleLine2}>{HERO_CONTENT.title[1]}</span>
+            <span className={styles.titleLine1}>{HERO_CONTENT.title[1]}</span>
           </h1>
 
-          <p className={styles.description}>{HERO_CONTENT.description}</p>
+          <p 
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: HERO_CONTENT.description }}
+          />
 
           <Link href={HERO_CONTENT.cta.href} className={styles.ctaButton}>
             {HERO_CONTENT.cta.label}

@@ -1,0 +1,109 @@
+@import '@/styles/variables.scss';
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px $spacing-lg $spacing-3xl;
+  overflow: hidden;
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    video{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter:brightness(40%)
+    }
+  }
+}
+ 
+.container {
+  position: absolute;
+  left: 48px;
+  bottom: 80px;
+
+}
+
+.content {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.title {
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  color: $color-text-primary;
+}
+
+.titleLine1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: white;
+  line-height: 48px;
+  display: block;
+}
+
+ 
+
+.description {
+font-size: 24px;
+font-weight: 300;
+color: white;
+line-height: 32px;
+margin-bottom: 24px;
+}
+
+.ctaButton {
+  color: #fff;
+  border: 1px solid #f5f5f5;
+  border-radius: 8px;
+  width: 220px;
+  height: 60px;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all .3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 24px;
+  svg{
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .hero {
+    padding: 100px $spacing-md $spacing-2xl;
+    min-height: auto;
+  }
+
+  .description {
+    margin-bottom: $spacing-xl;
+  }
+
+  .ctaButton {
+    width: 100%;
+    justify-content: center;
+    padding: $spacing-lg;
+  }
+}
+
