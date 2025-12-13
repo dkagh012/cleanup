@@ -1,0 +1,185 @@
+@import '@/styles/variables.scss';
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid $border-color;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-md $spacing-lg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.logoText {
+  font-family: $font-family-mono;
+  letter-spacing: -0.02em;
+}
+
+.nav {
+  display: flex;
+  gap: $spacing-xl;
+  align-items: center;
+}
+
+.navLink {
+  color: $color-text-secondary;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color $transition-fast;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: $gradient-primary;
+    transition: width $transition-base;
+  }
+
+  &:hover {
+    color: $color-text-primary;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.ctaButton {
+  padding: $spacing-sm $spacing-md;
+  background: $color-bg-elevated;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-sm;
+  color: $color-text-primary;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all $transition-fast;
+
+  &:hover {
+    border-color: $color-accent-primary;
+    background: rgba(0, 217, 255, 0.1);
+  }
+}
+
+.menuButton {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: $spacing-sm;
+  z-index: 1001;
+  position: relative;
+  width: 24px;
+  height: 24px;
+}
+
+.menuIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 2px;
+  background: $color-text-primary;
+  transition: all $transition-base;
+  transform-origin: center;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: $color-text-primary;
+    transition: all $transition-base;
+    left: 0;
+  }
+
+  &::before {
+    top: -8px;
+  }
+
+  &::after {
+    top: 8px;
+  }
+}
+
+.menuIconOpen {
+  background: transparent;
+
+  &::before {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  &::after {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .menuButton {
+    display: flex;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background: $color-bg-secondary;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: $spacing-3xl $spacing-lg;
+    gap: $spacing-lg;
+    transition: right $transition-base;
+    border-left: 1px solid $border-color;
+  }
+
+  .navOpen {
+    right: 0;
+  }
+
+  .navLink {
+    font-size: 1.1rem;
+  }
+
+  .ctaButton {
+    width: 100%;
+    text-align: center;
+    padding: $spacing-md;
+  }
+}
+

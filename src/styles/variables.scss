@@ -1,0 +1,54 @@
+// 다크 테마 컬러 시스템
+$color-bg-primary: #0a0a0a;
+$color-bg-secondary: #111111;
+$color-bg-tertiary: #1a1a1a;
+$color-bg-elevated: #1f1f1f;
+
+$color-text-primary: #ededed;
+$color-text-secondary: #a0a0a0;
+$color-text-tertiary: #6b6b6b;
+
+// 테크 액센트 컬러
+$color-accent-primary: #00d9ff;
+$color-accent-secondary: #7c3aed;
+$color-accent-tertiary: #10b981;
+
+// 그라데이션
+$gradient-primary: linear-gradient(135deg, #00d9ff 0%, #7c3aed 100%);
+$gradient-secondary: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+
+// 테두리
+$border-color: rgba(255, 255, 255, 0.1);
+$border-radius-sm: 8px;
+$border-radius-md: 12px;
+$border-radius-lg: 16px;
+
+// 그림자
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+$shadow-glow: 0 0 20px rgba(0, 217, 255, 0.3);
+
+// 간격
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-2xl: 48px;
+$spacing-3xl: 64px;
+
+// 타이포그래피
+$font-family-sans: var(--font-geist-sans), system-ui, sans-serif;
+$font-family-mono: var(--font-geist-mono), 'Courier New', monospace;
+
+// 전환 효과
+$transition-fast: 150ms ease;
+$transition-base: 300ms ease;
+$transition-slow: 500ms ease;
+
+// 브레이크포인트
+$breakpoint-mobile: 640px;
+$breakpoint-tablet: 968px;
+$breakpoint-desktop: 1200px;
+
