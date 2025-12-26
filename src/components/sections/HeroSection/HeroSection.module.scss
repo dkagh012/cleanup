@@ -1,151 +1,145 @@
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
 
 .hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 120px $spacing-lg $spacing-3xl;
-  overflow: hidden;
-  .background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;
-    video{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter:brightness(40%)
+    align-items: center;
+    min-height: 100vh;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(40%);
+        }
     }
-  }
 }
- 
-.container {
-  position: absolute;
-  left: 48px;
-  bottom: 80px;
 
+.container {
+    // position: absolute;
+    // bottom: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 .content {
-  animation: fadeIn 0.8s ease-out;
+    animation: fadeIn 0.8s ease-out;
 }
 
 .title {
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 12px;
-  color: $color-text-primary;
+    font-weight: 700;
+    line-height: 1.1;
+    color: $color-text-primary;
+    padding-bottom: 24px;
 }
 
 .titleLine1 {
-  font-size: 36px;
-  font-weight: 700;
-  color: white;
-  line-height: 48px;
-  display: block;
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    line-height: 48px;
+    display: block;
 }
 
- 
-
 .description {
-font-size: 24px;
-font-weight: 300;
-color: white;
-line-height: 32px;
-margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 300;
+    color: white;
+    line-height: 32px;
+    margin-bottom: 24px;
 }
 
 .ctaButton {
-  color: #fff;
-  border: 1px solid #f5f5f5;
-  border-radius: 8px;
-  width: 220px;
-  height: 60px;
-  font-size: 20px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all .3s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-left: 24px;
-  svg{
-    width: 20px;
-    height: 20px;
-  }
+    width: 156px;
+    height: 48px;
+    background-color: white;
+    color: #131313;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin: 0 auto;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: $breakpoint-tablet) {
-  .hero {
-    padding: 100px 32px 60px;
-    min-height: auto;
-  }
+    .hero {
+        padding: 100px 32px 60px;
+        min-height: auto;
+    }
 
-  .container {
-    left: 32px;
-    bottom: 60px;
-  }
+    .container {
+        left: 32px;
+        bottom: 60px;
+    }
 
-  .titleLine1 {
-    font-size: 28px;
-    line-height: 36px;
-  }
+    .titleLine1 {
+        font-size: 28px;
+        line-height: 36px;
+    }
 
-  .description {
-    font-size: 18px;
-    line-height: 28px;
-    margin-bottom: 20px;
-  }
+    .description {
+        font-size: 18px;
+        line-height: 28px;
+        margin-bottom: 20px;
+    }
 
-  .ctaButton {
-    width: 200px;
-    height: 56px;
-    font-size: 18px;
-  }
+    .ctaButton {
+        width: 200px;
+        height: 56px;
+        font-size: 18px;
+    }
 }
 
 @media (max-width: $breakpoint-mobile) {
-  .hero {
-    padding: 80px 24px 48px;
-  }
+    .hero {
+        padding: 80px 24px 48px;
+    }
 
-  .container {
-    left: 24px;
-    bottom: 48px;
-  }
+    .container {
+        left: 24px;
+        bottom: 48px;
+    }
 
-  .titleLine1 {
-    font-size: 24px;
-    line-height: 32px;
-  }
+    .titleLine1 {
+        font-size: 24px;
+        line-height: 32px;
+    }
 
-  .description {
-    font-size: 16px;
-    line-height: 24px;
-    margin-bottom: 16px;
-  }
+    .description {
+        font-size: 16px;
+        line-height: 24px;
+        margin-bottom: 16px;
+    }
 
-  .ctaButton {
-    width: 100%;
-    height: 52px;
-    font-size: 16px;
-    justify-content: center;
-    padding: 0;
-  }
+    .ctaButton {
+        width: 100%;
+        height: 52px;
+        font-size: 16px;
+        justify-content: center;
+        padding: 0;
+    }
 }
-
