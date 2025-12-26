@@ -29,6 +29,7 @@ export default function FAQSection() {
                             )}
                             data-aos="fade-up"
                             data-aos-delay={index * 100}
+                            data-aos-once="true"
                         >
                             <button
                                 className={styles.faqQuestion}
@@ -62,6 +63,7 @@ export default function FAQSection() {
                                     styles.faqAnswer,
                                     openIndex === index && styles.faqAnswerOpen
                                 )}
+                                onClick={(e) => e.stopPropagation()}
                             >
                                 <div>
                                     <img
