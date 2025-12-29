@@ -13,9 +13,9 @@ export default function FAQSection() {
     };
 
     return (
-        <section id="faq" className={styles.section}>
+        <section id="faq" className={styles.section} data-aos="fade-up">
             <div className={styles.container}>
-                <div className={styles.header} data-aos="fade-up">
+                <div className={styles.header}>
                     <h2 className={styles.title}>FAQ</h2>
                 </div>
 
@@ -27,9 +27,6 @@ export default function FAQSection() {
                                 styles.faqItem,
                                 openIndex === index && styles.faqItemOpen
                             )}
-                            data-aos="fade-up"
-                            data-aos-delay={index * 100}
-                            data-aos-once="true"
                         >
                             <button
                                 className={styles.faqQuestion}

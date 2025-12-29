@@ -1,19 +1,28 @@
 @import "@/styles/variables.scss";
 
 .header {
-    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
-    .logo {
-    }
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: fixed;
+    backdrop-filter: saturate(180%) blur(15px);
+    z-index: 100;
+    background: rgb(0 0 0 / 30%);
+    border-color: rgb(39 38 38);
+
     .container {
         display: flex;
         align-items: center;
         justify-content: space-between;
         height: 96px;
         padding: 0 48px;
+        width: 100%;
     }
     .link {
         width: 156px;

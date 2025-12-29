@@ -25,6 +25,7 @@
     outline: 1px solid #353535;
     border-radius: 8px;
     opacity: 1 !important;
+    background-color: #15161b;
 }
 
 .faqList {
@@ -50,6 +51,8 @@
     span {
         flex: 1;
         padding-right: $spacing-md;
+        font-weight: 400;
+        color: #a7aab6;
     }
 }
 
@@ -73,7 +76,7 @@
 }
 
 .faqAnswerOpen {
-    max-height: 500px;
+    max-height: 100%;
     padding: 0 24px 24px;
     display: flex;
     gap: 16px;
