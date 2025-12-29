@@ -2,7 +2,7 @@
 
 .hero {
     align-items: center;
-    min-height: 100vh;
+    min-height: calc(100vh / var(--viewport-scale, 1));
     display: flex;
     position: relative;
     overflow: hidden;
