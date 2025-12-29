@@ -18,7 +18,20 @@ export default function ViewportScale({
             const width = window.innerWidth;
             const baseWidth = 1280;
 
-            // 너비 기준으로 스케일 계산
+            // 1280px 미만에서는 스케일링 적용하지 않고 반응형으로 동작
+            if (width < baseWidth) {
+                containerRef.current.style.transform = "none";
+                containerRef.current.style.width = "100%";
+                containerRef.current.style.transformOrigin = "top center";
+                document.documentElement.style.setProperty(
+                    "--viewport-scale",
+                    "1"
+                );
+                wrapperRef.current.style.height = "auto";
+                return;
+            }
+
+            // 1280px 이상에서는 스케일 적용
             const newScale = width / baseWidth;
 
             // 스케일 적용
