@@ -16,7 +16,7 @@ export default function ViewportScale({
             if (!containerRef.current || !wrapperRef.current) return;
 
             const width = window.innerWidth;
-            const baseWidth = 1280;
+            const baseWidth = 1440;
 
             // 1280px 미만에서는 스케일링 적용하지 않고 반응형으로 동작
             if (width < baseWidth) {

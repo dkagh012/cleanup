@@ -105,14 +105,9 @@ export default function EstimatePage() {
     return (
         <div className={styles.page}>
             <div className={styles.container}>
-                <div className={styles.header}>
-                    <h1 className={styles.title}>클린업 견적 요청</h1>
-                    <p className={styles.description}>
-                        프로젝트 정보를 입력해주시면, 상세한 견적과 진행 계획을
-                        안내해드립니다.
-                    </p>
+                <div>
+                    <h1 className={styles.title}>기본 정보</h1>
                 </div>
-
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.formGroup}>
                         <label htmlFor="name" className={styles.label}>
