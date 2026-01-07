@@ -122,7 +122,6 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding-top: 20px;
     position: relative;
 }
 
@@ -131,7 +130,8 @@
     opacity: 0;
     width: 0;
     height: 0;
-    padd + .checkboxLabel {
+
+    + .checkboxLabel {
         position: relative;
         display: flex;
         align-items: center;
@@ -143,10 +143,10 @@
 
         &::before {
             content: "";
-            width: 20px;
-            height: 20px;
-            border: 1px solid rgba(255, 255, 255, 1);
-            border-radius: 4px;
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 6px;
             background: transparent;
             display: block;
             flex-shrink: 0;
@@ -162,7 +162,7 @@
     &:checked + .checkboxLabel::after {
         content: "✓";
         position: absolute;
-        left: 5px;
+        left: 8px;
         top: 50%;
         transform: translateY(-50%);
         color: #0a0a0a;
@@ -179,7 +179,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
 }
 
 .termsLink {
