@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect, useRef } from "react";
 import styles from "./page.module.scss";
-import Link from "next/link";
 
 export default function EstimatePage() {
     const [formData, setFormData] = useState({
@@ -26,7 +25,9 @@ export default function EstimatePage() {
 
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [showTermsModal, setShowTermsModal] = useState(false);
+    const shouldScrollToError = useRef(false);
 
     const serviceScaleOptions = [
         "내부 테스트 단계",
@@ -61,6 +62,8 @@ export default function EstimatePage() {
         "Node.js / Nest.js",
         "Django / FastAPI",
         "Spring / Java",
+        "AI가 만든 코드라 구조를 파악하기 어려움",
+        "어디가 문제인지 전혀 모르겠음",
     ];
 
     const developmentMethodOptions = [
@@ -109,13 +112,40 @@ export default function EstimatePage() {
         }
 
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        return {
+            isValid: Object.keys(newErrors).length === 0,
+            errors: newErrors,
+        };
     };
+
+    // 에러 상태 변경 시 첫 번째 에러 필드로 스크롤
+    useEffect(() => {
+        if (shouldScrollToError.current && Object.keys(errors).length > 0) {
+            const firstErrorField = Object.keys(errors)[0];
+            if (firstErrorField) {
+                setTimeout(() => {
+                    const errorElement =
+                        document.getElementById(firstErrorField);
+                    if (errorElement) {
+                        errorElement.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center",
+                        });
+                        errorElement.focus();
+                    }
+                }, 100);
+            }
+            shouldScrollToError.current = false;
+        }
+    }, [errors]);
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!validateForm()) {
+        const validation = validateForm();
+        if (!validation.isValid) {
+            // 에러 상태 업데이트 후 스크롤하도록 플래그 설정
+            shouldScrollToError.current = true;
             return;
         }
 
@@ -125,7 +155,31 @@ export default function EstimatePage() {
 
         console.log("Form submitted:", formData);
         setIsSubmitting(false);
-        setIsSubmitted(true);
+        setShowModal(true);
+    };
+
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
+
+    const handleModalConfirm = () => {
+        setShowModal(false);
+        // 폼 초기화
+        setFormData({
+            name: "",
+            email: "",
+            contact: "",
+            companyName: "",
+            serviceName: "",
+            serviceDescription: "",
+            serviceScale: "",
+            serviceUrl: "",
+            currentProblems: [],
+            problemDescription: "",
+            techStack: [],
+            developmentMethod: "",
+            privacyConsent: false,
+        });
     };
 
     const handleChange = (
@@ -169,29 +223,147 @@ export default function EstimatePage() {
         }
     };
 
-    if (isSubmitted) {
-        return (
-            <div className={styles.page}>
-                <div className={styles.container}>
-                    <div className={styles.successMessage}>
-                        <div className={styles.successIcon}>✓</div>
-                        <h1 className={styles.successTitle}>
-                            견적 요청이 접수되었습니다
-                        </h1>
-                        <p className={styles.successDescription}>
-                            빠른 시일 내에 연락드리겠습니다.
-                        </p>
-                        <Link href="/" className={styles.backButton}>
-                            홈으로 돌아가기
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     return (
         <div className={styles.page}>
+            {showModal && (
+                <div className={styles.modalOverlay} onClick={handleModalClose}>
+                    <div
+                        className={styles.modal}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <h2 className={styles.modalTitle}>
+                            견적 요청이 접수되었습니다
+                        </h2>
+                        <div className={styles.modalContent}>
+                            <p>요청 내용을 확인한 후</p>
+                            <p>영업일 기준 3일 이내에 안내드릴 예정입니다.</p>
+                            <p>필요 정보 확인 후 무료 진단이 진행됩니다.</p>
+                        </div>
+                        <div className={styles.modalButtons}>
+                            <button
+                                type="button"
+                                className={styles.modalCancelButton}
+                                onClick={handleModalClose}
+                            >
+                                취소
+                            </button>
+                            <button
+                                type="button"
+                                className={styles.modalConfirmButton}
+                                onClick={handleModalConfirm}
+                            >
+                                확인
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+            {showTermsModal && (
+                <div
+                    className={styles.modalOverlay}
+                    onClick={() => setShowTermsModal(false)}
+                >
+                    <div
+                        className={styles.termsModal}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            type="button"
+                            className={styles.termsModalClose}
+                            onClick={() => setShowTermsModal(false)}
+                        >
+                            ×
+                        </button>
+                        <h2 className={styles.termsModalTitle}>
+                            개인정보 수집·이용 동의
+                        </h2>
+                        <div className={styles.termsModalContent}>
+                            <div className={styles.termsSection}>
+                                <h3 className={styles.termsSectionTitle}>
+                                    <span className={styles.termsSectionNumber}>
+                                        1.
+                                    </span>{" "}
+                                    개인정보 수집·이용 안내
+                                </h3>
+                                <p className={styles.termsText}>
+                                    회사는 아래와 같이 개인정보를 수집·이용하고
+                                    있습니다.
+                                </p>
+                                <p className={styles.termsText}>
+                                    컨설팅 요청 접수 및 무료 진단 진행을 위해
+                                    아래의 개인정보를 수집·이용합니다.
+                                </p>
+                            </div>
+
+                            <div className={styles.termsSection}>
+                                <h3 className={styles.termsSectionTitle}>
+                                    <span className={styles.termsSectionNumber}>
+                                        2.
+                                    </span>{" "}
+                                    수집 항목
+                                </h3>
+                                <ul className={styles.termsList}>
+                                    <li>이름(또는 닉네임)</li>
+                                    <li>이메일 주소</li>
+                                    <li>연락처</li>
+                                    <li>컨설팅 요청 내용</li>
+                                </ul>
+                            </div>
+
+                            <div className={styles.termsSection}>
+                                <h3 className={styles.termsSectionTitle}>
+                                    <span className={styles.termsSectionNumber}>
+                                        3.
+                                    </span>{" "}
+                                    수집·이용 목적
+                                </h3>
+                                <ul className={styles.termsList}>
+                                    <li>컨설팅 요청 접수 및 본인 확인</li>
+                                    <li>컨설팅 진행을 위한 안내 및 의사소통</li>
+                                    <li>
+                                        요청 내용 검토 및 사전 진단(무료 진단
+                                        포함)
+                                    </li>
+                                    <li>진단 결과 및 컨설팅 관련 후속 안내</li>
+                                </ul>
+                            </div>
+
+                            <div className={styles.termsSection}>
+                                <h3 className={styles.termsSectionTitle}>
+                                    <span className={styles.termsSectionNumber}>
+                                        4.
+                                    </span>{" "}
+                                    보유 및 이용 기간
+                                </h3>
+                                <p className={styles.termsText}>
+                                    컨설팅 요청일로부터 최대 1년간 보관 후 파기
+                                </p>
+                                <p className={styles.termsText}>
+                                    단, 관련 법령에 따라 보관이 필요한 경우 해당
+                                    법령을 따릅니다.
+                                </p>
+                            </div>
+
+                            <div className={styles.termsSection}>
+                                <h3 className={styles.termsSectionTitle}>
+                                    <span className={styles.termsSectionNumber}>
+                                        5.
+                                    </span>{" "}
+                                    동의 거부 권리 및 불이익
+                                </h3>
+                                <p className={styles.termsText}>
+                                    개인정보 수집·이용에 대한 동의를 거부할 수
+                                    있으나,
+                                </p>
+                                <p className={styles.termsText}>
+                                    동의하지 않을 경우 컨설팅 요청 접수가 제한될
+                                    수 있습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
             <div className={styles.container}>
                 <form className={styles.form} onSubmit={handleSubmit}>
                     {/* 기본 정보 섹션 */}
@@ -224,7 +396,7 @@ export default function EstimatePage() {
                                 <span className={styles.required}>*</span>
                             </label>
                             <input
-                                type="email"
+                                type="text"
                                 id="email"
                                 name="email"
                                 value={formData.email}
@@ -366,7 +538,7 @@ export default function EstimatePage() {
                                 서비스 접속 URL
                             </label>
                             <input
-                                type="url"
+                                type="text"
                                 id="serviceUrl"
                                 name="serviceUrl"
                                 value={formData.serviceUrl}
@@ -375,172 +547,138 @@ export default function EstimatePage() {
                                 placeholder="URL을 입력해주세요"
                             />
                         </div>
+                    </div>
 
-                        <div className={styles.formGroup}>
-                            <label className={styles.label}>
-                                현재 겪고 있는 문제(중복 선택){" "}
-                                <span className={styles.required}>*</span>
-                            </label>
-                            <div className={styles.optionGroup}>
-                                {currentProblemsOptions.map((option) => (
-                                    <button
-                                        key={option}
-                                        type="button"
-                                        className={`${styles.optionButton} ${formData.currentProblems.includes(option) ? styles.optionButtonActive : ""}`}
-                                        onClick={() =>
-                                            handleCheckboxChange(
-                                                "currentProblems",
-                                                option
-                                            )
-                                        }
-                                    >
-                                        {option}
-                                    </button>
-                                ))}
-                            </div>
-                            {errors.currentProblems && (
-                                <span className={styles.error}>
-                                    {errors.currentProblems}
-                                </span>
-                            )}
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>
+                            현재 겪고 있는 문제(중복 선택){" "}
+                            <span className={styles.required}>*</span>
+                        </label>
+                        <div className={styles.optionGroup}>
+                            {problemOptions.map((option) => (
+                                <button
+                                    key={option}
+                                    type="button"
+                                    className={`${styles.optionButton} ${formData.currentProblems.includes(option) ? styles.optionButtonActive : ""}`}
+                                    onClick={() =>
+                                        handleCheckboxChange(
+                                            "currentProblems",
+                                            option
+                                        )
+                                    }
+                                >
+                                    {option}
+                                </button>
+                            ))}
+                        </div>
+                        {errors.currentProblems && (
+                            <span className={styles.error}>
+                                {errors.currentProblems}
+                            </span>
+                        )}
+                    </div>
+
+                    <div className={styles.formGroup}>
+                        <label
+                            htmlFor="problemDescription"
+                            className={styles.label}
+                        >
+                            문제 설명 <span className={styles.required}>*</span>
+                        </label>
+                        <textarea
+                            id="problemDescription"
+                            name="problemDescription"
+                            value={formData.problemDescription}
+                            onChange={handleChange}
+                            rows={6}
+                            className={`${styles.textarea} ${errors.problemDescription ? styles.inputError : ""}`}
+                            placeholder="내용을 입력해주세요"
+                        />
+                        {errors.problemDescription && (
+                            <span className={styles.error}>
+                                {errors.problemDescription}
+                            </span>
+                        )}
+                    </div>
+
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>사용 기술 스택</label>
+                        <div className={styles.optionGroup}>
+                            {techStackOptions.map((option) => (
+                                <button
+                                    key={option}
+                                    type="button"
+                                    className={`${styles.optionButton} ${formData.techStack.includes(option) ? styles.optionButtonActive : ""}`}
+                                    onClick={() =>
+                                        handleCheckboxChange(
+                                            "techStack",
+                                            option
+                                        )
+                                    }
+                                >
+                                    {option}
+                                </button>
+                            ))}
                         </div>
                     </div>
 
-                    {/* 문제 보고 섹션 */}
-                    <div className={styles.section}>
-                        <h2 className={styles.sectionTitle}>문제 보고</h2>
-
-                        <div className={styles.formGroup}>
-                            <label className={styles.label}>
-                                현재 겪고 있는 문제(중복 선택){" "}
-                                <span className={styles.required}>*</span>
-                            </label>
-                            <div className={styles.optionGroup}>
-                                {problemOptions.map((option) => (
-                                    <button
-                                        key={option}
-                                        type="button"
-                                        className={`${styles.optionButton} ${formData.currentProblems.includes(option) ? styles.optionButtonActive : ""}`}
-                                        onClick={() =>
-                                            handleCheckboxChange(
-                                                "currentProblems",
-                                                option
-                                            )
-                                        }
-                                    >
-                                        {option}
-                                    </button>
-                                ))}
-                            </div>
-                            {errors.currentProblems && (
-                                <span className={styles.error}>
-                                    {errors.currentProblems}
-                                </span>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label
-                                htmlFor="problemDescription"
-                                className={styles.label}
-                            >
-                                문제 설명{" "}
-                                <span className={styles.required}>*</span>
-                            </label>
-                            <textarea
-                                id="problemDescription"
-                                name="problemDescription"
-                                value={formData.problemDescription}
-                                onChange={handleChange}
-                                rows={6}
-                                className={`${styles.textarea} ${errors.problemDescription ? styles.inputError : ""}`}
-                                placeholder="내용을 입력해주세요"
-                            />
-                            {errors.problemDescription && (
-                                <span className={styles.error}>
-                                    {errors.problemDescription}
-                                </span>
-                            )}
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label className={styles.label}>
-                                사용 기술 스택
-                            </label>
-                            <div className={styles.optionGroup}>
-                                {techStackOptions.map((option) => (
-                                    <button
-                                        key={option}
-                                        type="button"
-                                        className={`${styles.optionButton} ${formData.techStack.includes(option) ? styles.optionButtonActive : ""}`}
-                                        onClick={() =>
-                                            handleCheckboxChange(
-                                                "techStack",
-                                                option
-                                            )
-                                        }
-                                    >
-                                        {option}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label className={styles.label}>개발 방식</label>
-                            <div className={styles.optionGroup}>
-                                {developmentMethodOptions.map((option) => (
-                                    <button
-                                        key={option}
-                                        type="button"
-                                        className={`${styles.optionButton} ${formData.developmentMethod === option ? styles.optionButtonActive : ""}`}
-                                        onClick={() =>
-                                            handleRadioChange(
-                                                "developmentMethod",
-                                                option
-                                            )
-                                        }
-                                    >
-                                        {option}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <div className={styles.checkboxGroup}>
-                                <input
-                                    type="checkbox"
-                                    id="privacyConsent"
-                                    name="privacyConsent"
-                                    checked={formData.privacyConsent}
-                                    onChange={handlePrivacyConsentChange}
-                                    className={styles.checkbox}
-                                />
-                                <label
-                                    htmlFor="privacyConsent"
-                                    className={styles.checkboxLabel}
+                    <div className={styles.formGroup}>
+                        <label className={styles.label}>개발 방식</label>
+                        <div className={styles.optionGroup}>
+                            {developmentMethodOptions.map((option) => (
+                                <button
+                                    key={option}
+                                    type="button"
+                                    className={`${styles.optionButton} ${formData.developmentMethod === option ? styles.optionButtonActive : ""}`}
+                                    onClick={() =>
+                                        handleRadioChange(
+                                            "developmentMethod",
+                                            option
+                                        )
+                                    }
                                 >
-                                    개인정보 수집동의{" "}
-                                    <span className={styles.required}>*</span>{" "}
-                                    <Link
-                                        href="#"
-                                        className={styles.termsLink}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            // 약관 보기 로직
-                                        }}
-                                    >
-                                        [약관보기]
-                                    </Link>
-                                </label>
-                            </div>
-                            {errors.privacyConsent && (
-                                <span className={styles.error}>
-                                    {errors.privacyConsent}
-                                </span>
-                            )}
+                                    {option}
+                                </button>
+                            ))}
                         </div>
+                    </div>
+
+                    <div
+                        className={styles.formGroup}
+                        style={{ paddingTop: "20px" }}
+                    >
+                        <div className={styles.checkboxGroup}>
+                            <input
+                                type="checkbox"
+                                id="privacyConsent"
+                                name="privacyConsent"
+                                checked={formData.privacyConsent}
+                                onChange={handlePrivacyConsentChange}
+                                className={styles.checkbox}
+                            />
+                            <label
+                                htmlFor="privacyConsent"
+                                className={styles.checkboxLabel}
+                            >
+                                개인정보 수집동의{" "}
+                                <span className={styles.required}>*</span>{" "}
+                                <button
+                                    type="button"
+                                    className={styles.termsLink}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setShowTermsModal(true);
+                                    }}
+                                >
+                                    [약관보기]
+                                </button>
+                            </label>
+                        </div>
+                        {errors.privacyConsent && (
+                            <span className={styles.error}>
+                                {errors.privacyConsent}
+                            </span>
+                        )}
                     </div>
 
                     <button

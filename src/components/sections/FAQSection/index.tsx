@@ -81,10 +81,11 @@ export default function FAQSection() {
                                                     return `<p class="numberedPoint">${trimmed}</p>`;
                                                 }
                                                 if (trimmed === "") {
-                                                    return "<br/>";
+                                                    return "";
                                                 }
                                                 return `<p>${trimmed}</p>`;
                                             })
+                                            .filter((html) => html !== "")
                                             .join(""),
                                     }}
                                 />

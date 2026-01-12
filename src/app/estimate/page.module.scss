@@ -34,7 +34,7 @@
 .formGroup {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .label {
@@ -218,6 +218,94 @@
     }
 }
 
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: #15161b;
+    border-radius: 4px;
+    max-width: 450px;
+    padding-top: 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modalTitle {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    color: $color-text-primary;
+    margin: 0;
+}
+
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    padding-bottom: 14px;
+    p {
+        font-size: 14px;
+        color: $color-text-primary;
+        line-height: 1.6;
+        margin: 0;
+    }
+}
+
+.modalButtons {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-top: 1px solid #353535;
+}
+
+.modalCancelButton {
+    flex: 1;
+    padding: 16px 14px;
+    background: transparent;
+    border: 1px solid #353535;
+    border-radius: 8px;
+    color: $color-text-primary;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.modalConfirmButton {
+    flex: 1;
+    padding: 16px 14px;
+    background: white;
+    border: none;
+    border-radius: 8px;
+    color: #0a0a0a;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+        background: #f0f0f0;
+    }
+}
+
 .successMessage {
     text-align: center;
     padding: $spacing-3xl;
@@ -270,6 +358,114 @@
     }
 }
 
+.termsModal {
+    background: #15161b;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.termsModalClose {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: $color-text-primary;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all $transition-fast;
+    padding: 0;
+    z-index: 10;
+
+    &:hover {
+        color: $color-text-secondary;
+        opacity: 0.7;
+    }
+}
+
+.termsModalTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: $color-text-primary;
+    margin: 0 0 32px 0;
+    padding-right: 40px;
+}
+
+.termsModalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.termsSection {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.termsSectionTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-text-primary;
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.termsSectionNumber {
+    display: inline-block;
+    min-width: 20px;
+}
+
+.termsText {
+    font-size: 14px;
+    color: $color-text-primary;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.termsList {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-left: 3px;
+    li {
+        font-size: 14px;
+        color: $color-text-primary;
+        line-height: 1;
+        position: relative;
+        padding-left: 16px;
+
+        &::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: $color-text-primary;
+        }
+    }
+}
+
 @media (max-width: $breakpoint-tablet) {
     .page {
         padding: 48px 32px;
@@ -286,6 +482,30 @@
     .optionButton {
         padding: 10px 16px;
         font-size: 16px;
+    }
+
+    .termsModal {
+        padding: 32px;
+        max-width: 90%;
+    }
+
+    .termsModalTitle {
+        font-size: 18px;
+        padding-right: 40px;
+    }
+
+    .termsSectionTitle {
+        font-size: 15px;
+    }
+
+    .termsText {
+        font-size: 13px;
+    }
+
+    .termsList {
+        li {
+            font-size: 13px;
+        }
     }
 }
 
@@ -311,5 +531,53 @@
         width: 100%;
         text-align: left;
         white-space: normal;
+    }
+
+    .termsModal {
+        padding: 24px;
+        max-width: 95%;
+        max-height: 85vh;
+    }
+
+    .termsModalClose {
+        top: 16px;
+        right: 16px;
+        font-size: 24px;
+        width: 28px;
+        height: 28px;
+    }
+
+    .termsModalTitle {
+        font-size: 16px;
+        margin-bottom: 24px;
+        padding-right: 36px;
+    }
+
+    .termsSection {
+        margin-bottom: 20px;
+    }
+
+    .termsSectionTitle {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .termsSectionNumber {
+        min-width: 18px;
+    }
+
+    .termsText {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .termsList {
+        gap: 4px;
+
+        li {
+            font-size: 12px;
+            line-height: 1.6;
+            padding-left: 14px;
+        }
     }
 }
