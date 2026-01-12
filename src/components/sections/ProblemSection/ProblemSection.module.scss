@@ -2,6 +2,8 @@
 
 .section {
     padding: 60px 48px;
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
 .container {
@@ -39,11 +41,6 @@
     background: #15161b;
     border-radius: 16px;
     border: 1px solid #353535;
-    &:hover {
-        transform: translateY(-4px);
-        border-color: $color-accent-primary;
-        box-shadow: $shadow-lg;
-    }
 }
 
 .cardIcon {

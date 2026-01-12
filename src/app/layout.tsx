@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AOSProvider from "@/components/layout/AOSProvider";
-import ViewportScale from "@/components/layout/ViewportScale";
 import "@/styles/globals.scss";
 
 export const metadata: Metadata = {
@@ -32,11 +31,9 @@ export default function RootLayout({
         <html lang="ko">
             <body>
                 <AOSProvider>
-                    <ViewportScale>
-                        <Header />
-                        <main>{children}</main>
-                        <Footer />
-                    </ViewportScale>
+                    <Header />
+                    <main>{children}</main>
+                    <Footer />
                 </AOSProvider>
             </body>
         </html>
