@@ -228,12 +228,55 @@ export const translations = {
             modal: {
                 title: "견적 요청이 접수되었습니다",
                 content: [
-                    "요청 내용을 확인한 후",
-                    "영업일 기준 3일 이내에 안내드릴 예정입니다.",
+                    "요청 내용을 확인한 후<br/>영업일 기준 3일 이내에 안내드릴 예정입니다.",
                     "필요 정보 확인 후 무료 진단이 진행됩니다.",
                 ],
                 cancel: "취소",
                 confirm: "확인",
+            },
+            termsModal: {
+                title: "개인정보 수집·이용 동의",
+                sections: {
+                    overview: {
+                        title: "개인정보 수집·이용 안내",
+                        content: [
+                            "회사는 아래와 같이 개인정보를 수집·이용하고 있습니다.",
+                            "컨설팅 요청 접수 및 무료 진단 진행을 위해 아래의 개인정보를 수집·이용합니다.",
+                        ],
+                    },
+                    collectedItems: {
+                        title: "수집 항목",
+                        items: [
+                            "이름(또는 닉네임)",
+                            "이메일 주소",
+                            "연락처",
+                            "컨설팅 요청 내용",
+                        ],
+                    },
+                    purpose: {
+                        title: "수집·이용 목적",
+                        items: [
+                            "컨설팅 요청 접수 및 본인 확인",
+                            "컨설팅 진행을 위한 안내 및 의사소통",
+                            "요청 내용 검토 및 사전 진단(무료 진단 포함)",
+                            "진단 결과 및 컨설팅 관련 후속 안내",
+                        ],
+                    },
+                    retention: {
+                        title: "보유 및 이용 기간",
+                        content: [
+                            "컨설팅 요청일로부터 최대 1년간 보관 후 파기",
+                            "단, 관련 법령에 따라 보관이 필요한 경우 해당 법령을 따릅니다.",
+                        ],
+                    },
+                    refusal: {
+                        title: "동의 거부 권리 및 불이익",
+                        content: [
+                            "개인정보 수집·이용에 대한 동의를 거부할 수 있으나,",
+                            "동의하지 않을 경우 컨설팅 요청 접수가 제한될 수 있습니다.",
+                        ],
+                    },
+                },
             },
         },
     },
@@ -469,14 +512,57 @@ The exact timeline will be provided after the free review, based on the scope an
             submitButton: "Request Quote",
             submitting: "Submitting...",
             modal: {
-                title: "Estimate request has been received",
+                title: "Your request has been received",
                 content: [
-                    "After confirming the request details",
-                    "We will inform you within 3 business days.",
-                    "A free diagnosis will proceed after confirming the necessary information.",
+                    "We will review your request and get back to you<br/>within 3 business days.",
+                    "A free initial review will be conducted after confirming the details.",
                 ],
-                cancel: "Cancel",
-                confirm: "Confirm",
+                cancel: "Close",
+                confirm: "OK",
+            },
+            termsModal: {
+                title: "Consent to Collection and Use of Personal Information",
+                sections: {
+                    overview: {
+                        title: "Overview of Personal Information Collection and Use",
+                        content: [
+                            "We collect and use personal information as outlined below.",
+                            "We collect and use the following personal information for the purpose of receiving consulting requests and conducting a free initial review.",
+                        ],
+                    },
+                    collectedItems: {
+                        title: "Information Collected",
+                        items: [
+                            "Name (or nickname)",
+                            "Email address",
+                            "Contact information",
+                            "Details of the consulting request",
+                        ],
+                    },
+                    purpose: {
+                        title: "Purpose of Collection and Use",
+                        items: [
+                            "To receive consulting requests and verify identity",
+                            "To communicate and provide guidance during the consulting process",
+                            "To review the request and conduct a preliminary assessment (including a free review)",
+                            "To provide follow-up information related to diagnosis results and consulting services",
+                        ],
+                    },
+                    retention: {
+                        title: "Retention Period",
+                        content: [
+                            "Personal information will be retained for up to one year from the date of the consulting request and then securely deleted.",
+                            "However, if retention is required by applicable laws, such information will be retained in accordance with those laws.",
+                        ],
+                    },
+                    refusal: {
+                        title: "Right to Refuse Consent and Consequences",
+                        content: [
+                            "You have the right to refuse consent to the collection and use of your personal information. However,",
+                            "if you do not consent, submitting a consulting request may be restricted.",
+                        ],
+                    },
+                },
             },
         },
     },
@@ -708,14 +794,57 @@ The exact timeline will be provided after the free review, based on the scope an
             submitButton: "見積もり依頼",
             submitting: "送信中...",
             modal: {
-                title: "見積もり依頼が受付されました",
+                title: "お見積もり依頼を受け付けました",
                 content: [
-                    "依頼内容を確認した後",
-                    "営業日基準3日以内にご案内する予定です。",
-                    "必要情報確認後、無料診断が進行されます。",
+                    "ご依頼内容を確認のうえ、<br/>3営業日以内にご連絡いたします。",
+                    "必要な情報を確認後、無料診断を実施いたします。",
                 ],
-                cancel: "キャンセル",
+                cancel: "閉じる",
                 confirm: "確認",
+            },
+            termsModal: {
+                title: "個人情報の収集・利用に関する同意",
+                sections: {
+                    overview: {
+                        title: "個人情報の収集・利用について",
+                        content: [
+                            "当社は、以下のとおり個人情報を収集・利用いたします。",
+                            "コンサルティングのご依頼受付および無料診断の実施のため、以下の個人情報を収集・利用いたします。",
+                        ],
+                    },
+                    collectedItems: {
+                        title: "収集する情報",
+                        items: [
+                            "氏名（またはニックネーム）",
+                            "メールアドレス",
+                            "連絡先",
+                            "コンサルティング依頼内容",
+                        ],
+                    },
+                    purpose: {
+                        title: "利用目的",
+                        items: [
+                            "コンサルティング依頼の受付および本人確認",
+                            "コンサルティング実施に関する案内および連絡",
+                            "依頼内容の確認および事前診断（無料診断を含む）",
+                            "診断結果およびコンサルティングに関する後続案内",
+                        ],
+                    },
+                    retention: {
+                        title: "保管および利用期間",
+                        content: [
+                            "コンサルティング依頼日から最大1年間保管後、適切に破棄します。",
+                            "ただし、関連法令により保管が必要な場合は、当該法令に従います。",
+                        ],
+                    },
+                    refusal: {
+                        title: "同意拒否の権利および不利益",
+                        content: [
+                            "個人情報の収集・利用に関する同意を拒否することができますが、",
+                            "同意いただけない場合、コンサルティング依頼の受付が制限される場合があります。",
+                        ],
+                    },
+                },
             },
         },
     },

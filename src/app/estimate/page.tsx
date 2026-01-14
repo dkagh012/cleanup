@@ -203,7 +203,12 @@ export default function EstimatePage() {
                         <div className={styles.modalContent}>
                             {t.estimate.modal.content.map(
                                 (text: string, index: number) => (
-                                    <p key={index}>{text}</p>
+                                    <p
+                                        key={index}
+                                        dangerouslySetInnerHTML={{
+                                            __html: text,
+                                        }}
+                                    />
                                 )
                             )}
                         </div>
@@ -243,7 +248,7 @@ export default function EstimatePage() {
                             ×
                         </button>
                         <h2 className={styles.termsModalTitle}>
-                            개인정보 수집·이용 동의
+                            {t.estimate.termsModal.title}
                         </h2>
                         <div className={styles.termsModalContent}>
                             <div className={styles.termsSection}>
@@ -251,16 +256,21 @@ export default function EstimatePage() {
                                     <span className={styles.termsSectionNumber}>
                                         1.
                                     </span>{" "}
-                                    개인정보 수집·이용 안내
+                                    {
+                                        t.estimate.termsModal.sections.overview
+                                            .title
+                                    }
                                 </h3>
-                                <p className={styles.termsText}>
-                                    회사는 아래와 같이 개인정보를 수집·이용하고
-                                    있습니다.
-                                </p>
-                                <p className={styles.termsText}>
-                                    컨설팅 요청 접수 및 무료 진단 진행을 위해
-                                    아래의 개인정보를 수집·이용합니다.
-                                </p>
+                                {t.estimate.termsModal.sections.overview.content.map(
+                                    (text: string, index: number) => (
+                                        <p
+                                            key={index}
+                                            className={styles.termsText}
+                                        >
+                                            {text}
+                                        </p>
+                                    )
+                                )}
                             </div>
 
                             <div className={styles.termsSection}>
@@ -268,13 +278,17 @@ export default function EstimatePage() {
                                     <span className={styles.termsSectionNumber}>
                                         2.
                                     </span>{" "}
-                                    수집 항목
+                                    {
+                                        t.estimate.termsModal.sections
+                                            .collectedItems.title
+                                    }
                                 </h3>
                                 <ul className={styles.termsList}>
-                                    <li>이름(또는 닉네임)</li>
-                                    <li>이메일 주소</li>
-                                    <li>연락처</li>
-                                    <li>컨설팅 요청 내용</li>
+                                    {t.estimate.termsModal.sections.collectedItems.items.map(
+                                        (item: string, index: number) => (
+                                            <li key={index}>{item}</li>
+                                        )
+                                    )}
                                 </ul>
                             </div>
 
@@ -283,16 +297,17 @@ export default function EstimatePage() {
                                     <span className={styles.termsSectionNumber}>
                                         3.
                                     </span>{" "}
-                                    수집·이용 목적
+                                    {
+                                        t.estimate.termsModal.sections.purpose
+                                            .title
+                                    }
                                 </h3>
                                 <ul className={styles.termsList}>
-                                    <li>컨설팅 요청 접수 및 본인 확인</li>
-                                    <li>컨설팅 진행을 위한 안내 및 의사소통</li>
-                                    <li>
-                                        요청 내용 검토 및 사전 진단(무료 진단
-                                        포함)
-                                    </li>
-                                    <li>진단 결과 및 컨설팅 관련 후속 안내</li>
+                                    {t.estimate.termsModal.sections.purpose.items.map(
+                                        (item: string, index: number) => (
+                                            <li key={index}>{item}</li>
+                                        )
+                                    )}
                                 </ul>
                             </div>
 
@@ -301,15 +316,21 @@ export default function EstimatePage() {
                                     <span className={styles.termsSectionNumber}>
                                         4.
                                     </span>{" "}
-                                    보유 및 이용 기간
+                                    {
+                                        t.estimate.termsModal.sections.retention
+                                            .title
+                                    }
                                 </h3>
-                                <p className={styles.termsText}>
-                                    컨설팅 요청일로부터 최대 1년간 보관 후 파기
-                                </p>
-                                <p className={styles.termsText}>
-                                    단, 관련 법령에 따라 보관이 필요한 경우 해당
-                                    법령을 따릅니다.
-                                </p>
+                                {t.estimate.termsModal.sections.retention.content.map(
+                                    (text: string, index: number) => (
+                                        <p
+                                            key={index}
+                                            className={styles.termsText}
+                                        >
+                                            {text}
+                                        </p>
+                                    )
+                                )}
                             </div>
 
                             <div className={styles.termsSection}>
@@ -317,16 +338,21 @@ export default function EstimatePage() {
                                     <span className={styles.termsSectionNumber}>
                                         5.
                                     </span>{" "}
-                                    동의 거부 권리 및 불이익
+                                    {
+                                        t.estimate.termsModal.sections.refusal
+                                            .title
+                                    }
                                 </h3>
-                                <p className={styles.termsText}>
-                                    개인정보 수집·이용에 대한 동의를 거부할 수
-                                    있으나,
-                                </p>
-                                <p className={styles.termsText}>
-                                    동의하지 않을 경우 컨설팅 요청 접수가 제한될
-                                    수 있습니다.
-                                </p>
+                                {t.estimate.termsModal.sections.refusal.content.map(
+                                    (text: string, index: number) => (
+                                        <p
+                                            key={index}
+                                            className={styles.termsText}
+                                        >
+                                            {text}
+                                        </p>
+                                    )
+                                )}
                             </div>
                         </div>
                     </div>

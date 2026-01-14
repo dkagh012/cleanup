@@ -1,17 +1,16 @@
 .languageSelector {
     display: flex;
     align-items: center;
-    gap: 8px;
 }
 
 .languageButton {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 1);
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 400;
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 4px 6px;
     transition: all 0.2s ease;
 
     &:hover {
@@ -21,11 +20,11 @@
 
 .languageButtonActive {
     color: rgba(255, 255, 255, 1);
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .separator {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 1);
     font-size: 16px;
     user-select: none;
 }
