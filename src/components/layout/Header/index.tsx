@@ -20,9 +20,6 @@ export default function Header() {
                 </Link>
                 <div className={styles.rightSection}>
                     <LanguageSelector />
-                    <Link href="/estimate" className={styles.link}>
-                        {t.header.requestQuote}
-                    </Link>
                 </div>
             </div>
         </header>

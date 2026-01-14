@@ -213,6 +213,8 @@ export const translations = {
                     "Node.js / Nest.js",
                     "Django / FastAPI",
                     "Spring / Java",
+                    "AI가 만든 코드라 구조를 파악하기 어려움",
+                    "어디가 문제인지 전혀 모르겠음",
                 ],
                 developmentMethodOptions: [
                     "AI로 대부분 구현",
@@ -454,6 +456,8 @@ The exact timeline will be provided after the free review, based on the scope an
                     "Node.js / Nest.js",
                     "Django / FastAPI",
                     "Spring / Java",
+                    "Hard to understand AI-generated code structure",
+                    "No idea where the problem is",
                 ],
                 developmentMethodOptions: [
                     "Mostly built with AI",
@@ -691,6 +695,8 @@ The exact timeline will be provided after the free review, based on the scope an
                     "Node.js / Nest.js",
                     "Django / FastAPI",
                     "Spring / Java",
+                    "AI生成コードの構造が把握しづらい",
+                    "問題箇所が全く分からない",
                 ],
                 developmentMethodOptions: [
                     "AIで大部分を開発",
