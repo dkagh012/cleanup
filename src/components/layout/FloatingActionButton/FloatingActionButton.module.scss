@@ -1,0 +1,44 @@
+@use "@/styles/variables.scss" as *;
+
+.fab {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 56px;
+    height: 56px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    transition: all 0.3s ease;
+    color: #131313;
+    text-decoration: none;
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    svg {
+        width: 24px;
+        height: 24px;
+        stroke-width: 2;
+    }
+}
+
+@media (max-width: $breakpoint-mobile) {
+    .fab {
+        bottom: 24px;
+        right: 24px;
+        width: 48px;
+        height: 48px;
+
+        svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

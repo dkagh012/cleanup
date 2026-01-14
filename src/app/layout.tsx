@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import AOSProvider from "@/components/layout/AOSProvider";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import FloatingActionButton from "@/components/layout/FloatingActionButton";
 import "@/styles/globals.scss";
 
 export const metadata: Metadata = {
@@ -30,11 +32,14 @@ export default function RootLayout({
     return (
         <html lang="ko">
             <body>
-                <AOSProvider>
-                    <Header />
-                    <main>{children}</main>
-                    <Footer />
-                </AOSProvider>
+                <LanguageProvider>
+                    <AOSProvider>
+                        <Header />
+                        <main>{children}</main>
+                        <Footer />
+                        <FloatingActionButton />
+                    </AOSProvider>
+                </LanguageProvider>
             </body>
         </html>
     );

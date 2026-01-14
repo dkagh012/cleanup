@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
-import { HERO_CONTENT } from "@/constants/content";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/constants/translations";
 import styles from "./HeroSection.module.scss";
 
 export default function HeroSection() {
+    const { language } = useLanguage();
+    const t = translations[language];
+
     return (
         <section className={styles.hero}>
             <div className={styles.background}>
@@ -17,24 +23,24 @@ export default function HeroSection() {
                             data-aos="fade-up"
                             data-aos-delay="100"
                         >
-                            {HERO_CONTENT.title[0]}
+                            {t.hero.title[0]}
                         </span>
                         <span
                             className={styles.titleLine1}
                             data-aos="fade-up"
                             data-aos-delay="200"
                         >
-                            {HERO_CONTENT.title[1]}
+                            {t.hero.title[1]}
                         </span>
                     </h1>
 
                     <Link
-                        href={HERO_CONTENT.cta.href}
+                        href="/estimate"
                         className={styles.ctaButton}
                         data-aos="fade-up"
                         data-aos-delay="400"
                     >
-                        {HERO_CONTENT.cta.label}
+                        {t.hero.cta}
                     </Link>
                 </div>
             </div>

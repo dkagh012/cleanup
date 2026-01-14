@@ -4,16 +4,26 @@ import styles from "./Header.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/app/images/logo.png";
+import LanguageSelector from "../LanguageSelector";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/constants/translations";
+
 export default function Header() {
+    const { language } = useLanguage();
+    const t = translations[language];
+
     return (
         <header className={styles.header}>
             <div className={styles.container}>
                 <Link href="/" className={styles.logo}>
                     <img src={logo.src} alt="GESUN" />
                 </Link>
-                <Link href="/estimate" className={styles.link}>
-                    클린업 견적 요청
-                </Link>
+                <div className={styles.rightSection}>
+                    <LanguageSelector />
+                    <Link href="/estimate" className={styles.link}>
+                        {t.header.requestQuote}
+                    </Link>
+                </div>
             </div>
         </header>
     );

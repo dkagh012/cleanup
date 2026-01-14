@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { FAQ_ITEMS } from "@/constants/content";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/constants/translations";
 import { cn } from "@/utils/cn";
 import styles from "./FAQSection.module.scss";
 
 export default function FAQSection() {
+    const { language } = useLanguage();
+    const t = translations[language];
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const toggleFAQ = (index: number) => {
@@ -20,7 +23,7 @@ export default function FAQSection() {
                 </div>
 
                 <div className={styles.faqList}>
-                    {FAQ_ITEMS.map((item, index) => (
+                    {t.faq.items.map((item, index) => (
                         <div
                             key={index}
                             className={cn(

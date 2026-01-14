@@ -1,32 +1,33 @@
+"use client";
+
 import Link from "next/link";
-import { PROCESS_SECTION, HERO_CONTENT } from "@/constants/content";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/constants/translations";
 import styles from "./ProcessSection.module.scss";
 
 export default function ProcessSection() {
+    const { language } = useLanguage();
+    const t = translations[language];
+
     return (
         <section id="process" className={styles.section}>
             <div className={styles.container}>
                 <div className={styles.header} data-aos="fade-up">
                     <div>
-                        <h2 className={styles.title}>
-                            {PROCESS_SECTION.title}
-                        </h2>
+                        <h2 className={styles.title}>{t.process.title}</h2>
                         <p className={styles.subtitle}>
-                            {PROCESS_SECTION.subtitle}
+                            {t.process.subtitle}
                         </p>
                     </div>
                     <div className={styles.cta} data-aos="fade-up">
-                        <Link
-                            href={HERO_CONTENT.cta.href}
-                            className={styles.ctaButton}
-                        >
-                            {HERO_CONTENT.cta.label}
+                        <Link href="/estimate" className={styles.ctaButton}>
+                            {t.hero.cta}
                         </Link>
                     </div>
                 </div>
 
                 <div className={styles.steps}>
-                    {PROCESS_SECTION.steps.map((step, index) => (
+                    {t.process.steps.map((step, index) => (
                         <div
                             key={index}
                             className={styles.step}

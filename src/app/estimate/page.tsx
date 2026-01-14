@@ -1,9 +1,15 @@
 "use client";
 
 import { useState, FormEvent, useEffect, useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { translations } from "@/constants/translations";
 import styles from "./page.module.scss";
 
 export default function EstimatePage() {
+    const { language } = useLanguage();
+    const t = (translations[language] ||
+        translations.ko) as typeof translations.ko;
+
     const [formData, setFormData] = useState({
         // 기본 정보
         name: "",
@@ -29,86 +35,46 @@ export default function EstimatePage() {
     const [showTermsModal, setShowTermsModal] = useState(false);
     const shouldScrollToError = useRef(false);
 
-    const serviceScaleOptions = [
-        "내부 테스트 단계",
-        "운영하면서 문제가 느껴짐",
-        "기능이 많고, 서비스가 꽤 복잡한 상태",
-        "잘 모르겠음",
-    ];
-
-    const currentProblemsOptions = [
-        "기능이 제대로 작동하지 않음",
-        "오류가 자주 발생",
-        "특정 상황에서만 문제가 생김",
-        "속도가 느림",
-        "업데이트 또는 수정하면 다른 기능이 깨짐",
-    ];
-
-    const problemOptions = [
-        "기능이 제대로 작동하지 않음",
-        "오류가 자주 발생",
-        "특정 상황에서만 문제가 생김",
-        "속도가 느림",
-        "업데이트 또는 수정하면 다른 기능이 깨짐",
-        "AI로 만든 기능이 의도대로 동작하지 않음",
-        "AI가 만든 코드라 구조를 파악하기 어려움",
-        "어디가 문제인지 전혀 모르겠음",
-    ];
-
-    const techStackOptions = [
-        "React / Next.js",
-        "Vue / Nuxt",
-        "React Native / Flutter",
-        "Node.js / Nest.js",
-        "Django / FastAPI",
-        "Spring / Java",
-        "AI가 만든 코드라 구조를 파악하기 어려움",
-        "어디가 문제인지 전혀 모르겠음",
-    ];
-
-    const developmentMethodOptions = [
-        "AI로 대부분 구현",
-        "외주 개발",
-        "혼합",
-        "모르겠음",
-    ];
-
     const validateForm = () => {
         const newErrors: Record<string, string> = {};
 
         // 기본 정보 검증
         if (!formData.name.trim()) {
-            newErrors.name = "이름을 입력해주세요.";
+            newErrors.name = t.estimate.basicInfo.errors.name;
         }
         if (!formData.email.trim()) {
-            newErrors.email = "이메일을 입력해주세요.";
+            newErrors.email = t.estimate.basicInfo.errors.email;
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-            newErrors.email = "올바른 이메일 형식이 아닙니다.";
+            newErrors.email = t.estimate.basicInfo.errors.emailInvalid;
         }
         if (!formData.contact.trim()) {
-            newErrors.contact = "연락처를 입력해주세요.";
+            newErrors.contact = t.estimate.basicInfo.errors.contact;
         }
 
         // 서비스 정보 검증
         if (!formData.companyName.trim()) {
-            newErrors.companyName = "회사명을 입력해주세요.";
+            newErrors.companyName = t.estimate.serviceInfo.errors.companyName;
         }
         if (!formData.serviceName.trim()) {
-            newErrors.serviceName = "서비스명을 입력해주세요.";
+            newErrors.serviceName = t.estimate.serviceInfo.errors.serviceName;
         }
         if (!formData.serviceDescription.trim()) {
-            newErrors.serviceDescription = "서비스 간략 설명을 입력해주세요.";
+            newErrors.serviceDescription =
+                t.estimate.serviceInfo.errors.serviceDescription;
         }
         if (formData.currentProblems.length === 0) {
-            newErrors.currentProblems = "현재 겪고 있는 문제를 선택해주세요.";
+            newErrors.currentProblems =
+                t.estimate.serviceInfo.errors.currentProblems;
         }
 
         // 문제 보고 검증
         if (!formData.problemDescription.trim()) {
-            newErrors.problemDescription = "문제 설명을 입력해주세요.";
+            newErrors.problemDescription =
+                t.estimate.problemReport.errors.problemDescription;
         }
         if (!formData.privacyConsent) {
-            newErrors.privacyConsent = "개인정보 수집동의에 체크해주세요.";
+            newErrors.privacyConsent =
+                t.estimate.problemReport.errors.privacyConsent;
         }
 
         setErrors(newErrors);
@@ -232,12 +198,14 @@ export default function EstimatePage() {
                         onClick={(e) => e.stopPropagation()}
                     >
                         <h2 className={styles.modalTitle}>
-                            견적 요청이 접수되었습니다
+                            {t.estimate.modal.title}
                         </h2>
                         <div className={styles.modalContent}>
-                            <p>요청 내용을 확인한 후</p>
-                            <p>영업일 기준 3일 이내에 안내드릴 예정입니다.</p>
-                            <p>필요 정보 확인 후 무료 진단이 진행됩니다.</p>
+                            {t.estimate.modal.content.map(
+                                (text: string, index: number) => (
+                                    <p key={index}>{text}</p>
+                                )
+                            )}
                         </div>
                         <div className={styles.modalButtons}>
                             <button
@@ -245,14 +213,14 @@ export default function EstimatePage() {
                                 className={styles.modalCancelButton}
                                 onClick={handleModalClose}
                             >
-                                취소
+                                {t.estimate.modal.cancel}
                             </button>
                             <button
                                 type="button"
                                 className={styles.modalConfirmButton}
                                 onClick={handleModalConfirm}
                             >
-                                확인
+                                {t.estimate.modal.confirm}
                             </button>
                         </div>
                     </div>
@@ -368,11 +336,14 @@ export default function EstimatePage() {
                 <form className={styles.form} onSubmit={handleSubmit}>
                     {/* 기본 정보 섹션 */}
                     <div className={styles.section}>
-                        <h2 className={styles.sectionTitle}>기본 정보</h2>
+                        <h2 className={styles.sectionTitle}>
+                            {t.estimate.basicInfo.title}
+                        </h2>
 
                         <div className={styles.formGroup}>
                             <label htmlFor="name" className={styles.label}>
-                                이름 <span className={styles.required}>*</span>
+                                {t.estimate.basicInfo.name}{" "}
+                                <span className={styles.required}>*</span>
                             </label>
                             <input
                                 type="text"
@@ -381,7 +352,9 @@ export default function EstimatePage() {
                                 value={formData.name}
                                 onChange={handleChange}
                                 className={`${styles.input} ${errors.name ? styles.inputError : ""}`}
-                                placeholder="이름을 입력해주세요."
+                                placeholder={
+                                    t.estimate.basicInfo.placeholders.name
+                                }
                             />
                             {errors.name && (
                                 <span className={styles.error}>
@@ -392,7 +365,7 @@ export default function EstimatePage() {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="email" className={styles.label}>
-                                이메일{" "}
+                                {t.estimate.basicInfo.email}{" "}
                                 <span className={styles.required}>*</span>
                             </label>
                             <input
@@ -402,7 +375,9 @@ export default function EstimatePage() {
                                 value={formData.email}
                                 onChange={handleChange}
                                 className={`${styles.input} ${errors.email ? styles.inputError : ""}`}
-                                placeholder="이메일을 입력해주세요."
+                                placeholder={
+                                    t.estimate.basicInfo.placeholders.email
+                                }
                             />
                             {errors.email && (
                                 <span className={styles.error}>
@@ -413,7 +388,7 @@ export default function EstimatePage() {
 
                         <div className={styles.formGroup}>
                             <label htmlFor="contact" className={styles.label}>
-                                연락처{" "}
+                                {t.estimate.basicInfo.contact}{" "}
                                 <span className={styles.required}>*</span>
                             </label>
                             <input
@@ -423,7 +398,9 @@ export default function EstimatePage() {
                                 value={formData.contact}
                                 onChange={handleChange}
                                 className={`${styles.input} ${errors.contact ? styles.inputError : ""}`}
-                                placeholder="연락처를 입력해주세요."
+                                placeholder={
+                                    t.estimate.basicInfo.placeholders.contact
+                                }
                             />
                             {errors.contact && (
                                 <span className={styles.error}>
@@ -435,14 +412,16 @@ export default function EstimatePage() {
 
                     {/* 서비스 정보 섹션 */}
                     <div className={styles.section}>
-                        <h2 className={styles.sectionTitle}>서비스 정보</h2>
+                        <h2 className={styles.sectionTitle}>
+                            {t.estimate.serviceInfo.title}
+                        </h2>
 
                         <div className={styles.formGroup}>
                             <label
                                 htmlFor="companyName"
                                 className={styles.label}
                             >
-                                회사명{" "}
+                                {t.estimate.serviceInfo.companyName}{" "}
                                 <span className={styles.required}>*</span>
                             </label>
                             <input
@@ -452,7 +431,10 @@ export default function EstimatePage() {
                                 value={formData.companyName}
                                 onChange={handleChange}
                                 className={`${styles.input} ${errors.companyName ? styles.inputError : ""}`}
-                                placeholder="회사명을 입력해주세요."
+                                placeholder={
+                                    t.estimate.serviceInfo.placeholders
+                                        .companyName
+                                }
                             />
                             {errors.companyName && (
                                 <span className={styles.error}>
@@ -466,7 +448,7 @@ export default function EstimatePage() {
                                 htmlFor="serviceName"
                                 className={styles.label}
                             >
-                                서비스명{" "}
+                                {t.estimate.serviceInfo.serviceName}{" "}
                                 <span className={styles.required}>*</span>
                             </label>
                             <input
@@ -476,7 +458,10 @@ export default function EstimatePage() {
                                 value={formData.serviceName}
                                 onChange={handleChange}
                                 className={`${styles.input} ${errors.serviceName ? styles.inputError : ""}`}
-                                placeholder="서비스명을 입력해주세요."
+                                placeholder={
+                                    t.estimate.serviceInfo.placeholders
+                                        .serviceName
+                                }
                             />
                             {errors.serviceName && (
                                 <span className={styles.error}>
@@ -490,7 +475,7 @@ export default function EstimatePage() {
                                 htmlFor="serviceDescription"
                                 className={styles.label}
                             >
-                                서비스 간략 설명{" "}
+                                {t.estimate.serviceInfo.serviceDescription}{" "}
                                 <span className={styles.required}>*</span>
                             </label>
                             <textarea
@@ -500,7 +485,10 @@ export default function EstimatePage() {
                                 onChange={handleChange}
                                 rows={4}
                                 className={`${styles.textarea} ${errors.serviceDescription ? styles.inputError : ""}`}
-                                placeholder="서비스에 대한 간략한 설명을 입력해주세요."
+                                placeholder={
+                                    t.estimate.serviceInfo.placeholders
+                                        .serviceDescription
+                                }
                             />
                             {errors.serviceDescription && (
                                 <span className={styles.error}>
@@ -510,23 +498,27 @@ export default function EstimatePage() {
                         </div>
 
                         <div className={styles.formGroup}>
-                            <label className={styles.label}>서비스 규모</label>
+                            <label className={styles.label}>
+                                {t.estimate.serviceInfo.serviceScale}
+                            </label>
                             <div className={styles.optionGroup}>
-                                {serviceScaleOptions.map((option) => (
-                                    <button
-                                        key={option}
-                                        type="button"
-                                        className={`${styles.optionButton} ${formData.serviceScale === option ? styles.optionButtonActive : ""}`}
-                                        onClick={() =>
-                                            handleRadioChange(
-                                                "serviceScale",
-                                                option
-                                            )
-                                        }
-                                    >
-                                        {option}
-                                    </button>
-                                ))}
+                                {t.estimate.serviceInfo.scaleOptions.map(
+                                    (option: string) => (
+                                        <button
+                                            key={option}
+                                            type="button"
+                                            className={`${styles.optionButton} ${formData.serviceScale === option ? styles.optionButtonActive : ""}`}
+                                            onClick={() =>
+                                                handleRadioChange(
+                                                    "serviceScale",
+                                                    option
+                                                )
+                                            }
+                                        >
+                                            {option}
+                                        </button>
+                                    )
+                                )}
                             </div>
                         </div>
 
@@ -535,7 +527,7 @@ export default function EstimatePage() {
                                 htmlFor="serviceUrl"
                                 className={styles.label}
                             >
-                                서비스 접속 URL
+                                {t.estimate.serviceInfo.serviceUrl}
                             </label>
                             <input
                                 type="text"
@@ -544,141 +536,165 @@ export default function EstimatePage() {
                                 value={formData.serviceUrl}
                                 onChange={handleChange}
                                 className={styles.input}
-                                placeholder="URL을 입력해주세요"
+                                placeholder={
+                                    t.estimate.serviceInfo.placeholders
+                                        .serviceUrl
+                                }
                             />
                         </div>
                     </div>
 
-                    <div className={styles.formGroup}>
-                        <label className={styles.label}>
-                            현재 겪고 있는 문제(중복 선택){" "}
-                            <span className={styles.required}>*</span>
-                        </label>
-                        <div className={styles.optionGroup}>
-                            {problemOptions.map((option) => (
-                                <button
-                                    key={option}
-                                    type="button"
-                                    className={`${styles.optionButton} ${formData.currentProblems.includes(option) ? styles.optionButtonActive : ""}`}
-                                    onClick={() =>
-                                        handleCheckboxChange(
-                                            "currentProblems",
-                                            option
-                                        )
-                                    }
-                                >
-                                    {option}
-                                </button>
-                            ))}
-                        </div>
-                        {errors.currentProblems && (
-                            <span className={styles.error}>
-                                {errors.currentProblems}
-                            </span>
-                        )}
-                    </div>
+                    {/* 문제 보고 섹션 */}
+                    <div className={styles.section}>
+                        <h2 className={styles.sectionTitle}>
+                            {t.estimate.problemReport.title}
+                        </h2>
 
-                    <div className={styles.formGroup}>
-                        <label
-                            htmlFor="problemDescription"
-                            className={styles.label}
-                        >
-                            문제 설명 <span className={styles.required}>*</span>
-                        </label>
-                        <textarea
-                            id="problemDescription"
-                            name="problemDescription"
-                            value={formData.problemDescription}
-                            onChange={handleChange}
-                            rows={6}
-                            className={`${styles.textarea} ${errors.problemDescription ? styles.inputError : ""}`}
-                            placeholder="내용을 입력해주세요"
-                        />
-                        {errors.problemDescription && (
-                            <span className={styles.error}>
-                                {errors.problemDescription}
-                            </span>
-                        )}
-                    </div>
-
-                    <div className={styles.formGroup}>
-                        <label className={styles.label}>사용 기술 스택</label>
-                        <div className={styles.optionGroup}>
-                            {techStackOptions.map((option) => (
-                                <button
-                                    key={option}
-                                    type="button"
-                                    className={`${styles.optionButton} ${formData.techStack.includes(option) ? styles.optionButtonActive : ""}`}
-                                    onClick={() =>
-                                        handleCheckboxChange(
-                                            "techStack",
-                                            option
-                                        )
-                                    }
-                                >
-                                    {option}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className={styles.formGroup}>
-                        <label className={styles.label}>개발 방식</label>
-                        <div className={styles.optionGroup}>
-                            {developmentMethodOptions.map((option) => (
-                                <button
-                                    key={option}
-                                    type="button"
-                                    className={`${styles.optionButton} ${formData.developmentMethod === option ? styles.optionButtonActive : ""}`}
-                                    onClick={() =>
-                                        handleRadioChange(
-                                            "developmentMethod",
-                                            option
-                                        )
-                                    }
-                                >
-                                    {option}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div
-                        className={styles.formGroup}
-                        style={{ paddingTop: "20px" }}
-                    >
-                        <div className={styles.checkboxGroup}>
-                            <input
-                                type="checkbox"
-                                id="privacyConsent"
-                                name="privacyConsent"
-                                checked={formData.privacyConsent}
-                                onChange={handlePrivacyConsentChange}
-                                className={styles.checkbox}
-                            />
-                            <label
-                                htmlFor="privacyConsent"
-                                className={styles.checkboxLabel}
-                            >
-                                개인정보 수집동의{" "}
-                                <span className={styles.required}>*</span>{" "}
-                                <button
-                                    type="button"
-                                    className={styles.termsLink}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        setShowTermsModal(true);
-                                    }}
-                                >
-                                    [약관보기]
-                                </button>
+                        <div className={styles.formGroup}>
+                            <label className={styles.label}>
+                                {t.estimate.serviceInfo.currentProblems}{" "}
+                                <span className={styles.required}>*</span>
                             </label>
+                            <div className={styles.optionGroup}>
+                                {t.estimate.problemReport.problemOptions.map(
+                                    (option: string) => (
+                                        <button
+                                            key={option}
+                                            type="button"
+                                            className={`${styles.optionButton} ${formData.currentProblems.includes(option) ? styles.optionButtonActive : ""}`}
+                                            onClick={() =>
+                                                handleCheckboxChange(
+                                                    "currentProblems",
+                                                    option
+                                                )
+                                            }
+                                        >
+                                            {option}
+                                        </button>
+                                    )
+                                )}
+                            </div>
+                            {errors.currentProblems && (
+                                <span className={styles.error}>
+                                    {errors.currentProblems}
+                                </span>
+                            )}
                         </div>
-                        {errors.privacyConsent && (
-                            <span className={styles.error}>
-                                {errors.privacyConsent}
-                            </span>
-                        )}
+
+                        <div className={styles.formGroup}>
+                            <label
+                                htmlFor="problemDescription"
+                                className={styles.label}
+                            >
+                                {t.estimate.problemReport.problemDescription}{" "}
+                                <span className={styles.required}>*</span>
+                            </label>
+                            <textarea
+                                id="problemDescription"
+                                name="problemDescription"
+                                value={formData.problemDescription}
+                                onChange={handleChange}
+                                rows={6}
+                                className={`${styles.textarea} ${errors.problemDescription ? styles.inputError : ""}`}
+                                placeholder={
+                                    t.estimate.problemReport.placeholders
+                                        .problemDescription
+                                }
+                            />
+                            {errors.problemDescription && (
+                                <span className={styles.error}>
+                                    {errors.problemDescription}
+                                </span>
+                            )}
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label className={styles.label}>
+                                {t.estimate.problemReport.techStack}
+                            </label>
+                            <div className={styles.optionGroup}>
+                                {t.estimate.problemReport.techStackOptions.map(
+                                    (option: string) => (
+                                        <button
+                                            key={option}
+                                            type="button"
+                                            className={`${styles.optionButton} ${formData.techStack.includes(option) ? styles.optionButtonActive : ""}`}
+                                            onClick={() =>
+                                                handleCheckboxChange(
+                                                    "techStack",
+                                                    option
+                                                )
+                                            }
+                                        >
+                                            {option}
+                                        </button>
+                                    )
+                                )}
+                            </div>
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label className={styles.label}>
+                                {t.estimate.problemReport.developmentMethod}
+                            </label>
+                            <div className={styles.optionGroup}>
+                                {t.estimate.problemReport.developmentMethodOptions.map(
+                                    (option: string) => (
+                                        <button
+                                            key={option}
+                                            type="button"
+                                            className={`${styles.optionButton} ${formData.developmentMethod === option ? styles.optionButtonActive : ""}`}
+                                            onClick={() =>
+                                                handleRadioChange(
+                                                    "developmentMethod",
+                                                    option
+                                                )
+                                            }
+                                        >
+                                            {option}
+                                        </button>
+                                    )
+                                )}
+                            </div>
+                        </div>
+
+                        <div
+                            className={styles.formGroup}
+                            style={{ paddingTop: "20px" }}
+                        >
+                            <div className={styles.checkboxGroup}>
+                                <input
+                                    type="checkbox"
+                                    id="privacyConsent"
+                                    name="privacyConsent"
+                                    checked={formData.privacyConsent}
+                                    onChange={handlePrivacyConsentChange}
+                                    className={styles.checkbox}
+                                />
+                                <label
+                                    htmlFor="privacyConsent"
+                                    className={styles.checkboxLabel}
+                                >
+                                    {t.estimate.problemReport.privacyConsent}{" "}
+                                    <span className={styles.required}>*</span>{" "}
+                                    <button
+                                        type="button"
+                                        className={styles.termsLink}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            setShowTermsModal(true);
+                                        }}
+                                    >
+                                        {t.estimate.problemReport.viewTerms}
+                                    </button>
+                                </label>
+                            </div>
+                            {errors.privacyConsent && (
+                                <span className={styles.error}>
+                                    {errors.privacyConsent}
+                                </span>
+                            )}
+                        </div>
                     </div>
 
                     <button
@@ -686,7 +702,9 @@ export default function EstimatePage() {
                         className={styles.submitButton}
                         disabled={isSubmitting}
                     >
-                        {isSubmitting ? "제출 중..." : "견적 요청"}
+                        {isSubmitting
+                            ? t.estimate.submitting
+                            : t.estimate.submitButton}
                     </button>
                 </form>
             </div>

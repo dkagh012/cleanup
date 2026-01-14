@@ -1,4 +1,4 @@
-@import "@/styles/variables.scss";
+@use "@/styles/variables.scss" as *;
 
 .page {
     min-height: calc(100vh / var(--viewport-scale, 1));
@@ -108,15 +108,16 @@
     white-space: nowrap;
 
     &:hover {
-        background: #252525;
-        border-color: rgba(255, 255, 255, 0.2);
+        font-weight: bold;
+        background: #ffffff;
+        color: #131313;
     }
 }
 
 .optionButtonActive {
-    background: #252525;
-    border-color: rgba(255, 255, 255, 0.3);
-    color: $color-text-primary;
+    font-weight: bold;
+    background: #ffffff;
+    color: #131313;
 }
 
 .checkboxGroup {
@@ -529,6 +530,7 @@
 
     .optionButton {
         width: 100%;
+        font-size: 14px;
         text-align: left;
         white-space: normal;
     }
@@ -579,5 +581,8 @@
             line-height: 1.6;
             padding-left: 14px;
         }
+    }
+    .textarea {
+        font-size: 14px;
     }
 }
