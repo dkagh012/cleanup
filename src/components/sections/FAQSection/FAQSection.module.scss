@@ -28,6 +28,9 @@
     border-radius: 8px;
     opacity: 1 !important;
     background-color: #15161b;
+    span {
+        color: #a7aab6 !important;
+    }
 }
 
 .faqList {
@@ -53,15 +56,15 @@
     span {
         flex: 1;
         padding-right: $spacing-md;
-        font-weight: 400;
-        color: #a7aab6;
+        font-weight: 700;
+        color: #f5f5f5;
     }
 }
 
 .chevron {
     flex-shrink: 0;
     transition: transform $transition-base;
-    color: $color-text-secondary;
+    color: #f5f5f5;
 }
 
 .chevronOpen {
