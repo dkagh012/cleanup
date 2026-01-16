@@ -1,19 +1,43 @@
 "use client";
 
-import { useState } from "react";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/constants/translations";
+import { useState, useMemo, memo } from "react";
+import Image from "next/image";
+import { useTranslation } from "@/hooks/useTranslation";
 import { cn } from "@/utils/cn";
+import SafeHTML from "@/components/common/SafeHTML";
 import styles from "./FAQSection.module.scss";
 
-export default function FAQSection() {
-    const { language } = useLanguage();
-    const t = translations[language];
+function FAQSection() {
+    const t = useTranslation();
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     const toggleFAQ = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
     };
+
+    const formatFAQAnswer = (answer: string) => {
+        return answer
+            .split("\n")
+            .map((line) => {
+                const trimmed = line.trim();
+                if (trimmed.startsWith("•")) {
+                    return `<p class="bulletPoint">${trimmed}</p>`;
+                }
+                if (/^\d+\./.test(trimmed)) {
+                    return `<p class="numberedPoint">${trimmed}</p>`;
+                }
+                if (trimmed === "") {
+                    return "";
+                }
+                return `<p>${trimmed}</p>`;
+            })
+            .filter((html) => html !== "")
+            .join("");
+    };
+
+    const formattedAnswers = useMemo(() => {
+        return t.faq.items.map((item) => formatFAQAnswer(item.answer));
+    }, [t.faq.items]);
 
     return (
         <section id="faq" className={styles.section} data-aos="fade-up">
@@ -66,32 +90,15 @@ export default function FAQSection() {
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 <div>
-                                    <img
+                                    <Image
                                         src="/main/corner-down-right.png"
                                         alt="faq"
+                                        width={24}
+                                        height={24}
+                                        loading="lazy"
                                     />
                                 </div>
-                                <div
-                                    dangerouslySetInnerHTML={{
-                                        __html: item.answer
-                                            .split("\n")
-                                            .map((line) => {
-                                                const trimmed = line.trim();
-                                                if (trimmed.startsWith("•")) {
-                                                    return `<p class="bulletPoint">${trimmed}</p>`;
-                                                }
-                                                if (/^\d+\./.test(trimmed)) {
-                                                    return `<p class="numberedPoint">${trimmed}</p>`;
-                                                }
-                                                if (trimmed === "") {
-                                                    return "";
-                                                }
-                                                return `<p>${trimmed}</p>`;
-                                            })
-                                            .filter((html) => html !== "")
-                                            .join(""),
-                                    }}
-                                />
+                                <SafeHTML html={formattedAnswers[index]} />
                             </div>
                         </div>
                     ))}
@@ -100,3 +107,5 @@ export default function FAQSection() {
         </section>
     );
 }
+
+export default memo(FAQSection);

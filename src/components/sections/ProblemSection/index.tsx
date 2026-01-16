@@ -1,12 +1,13 @@
 "use client";
 
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/constants/translations";
+import { memo } from "react";
+import Image from "next/image";
+import { useTranslation } from "@/hooks/useTranslation";
+import SafeHTML from "@/components/common/SafeHTML";
 import styles from "./ProblemSection.module.scss";
 
-export default function ProblemSection() {
-    const { language } = useLanguage();
-    const t = translations[language];
+function ProblemSection() {
+    const t = useTranslation();
     const icons = ["/main/danger.png", "/main/time.png", "/main/box.png"];
 
     return (
@@ -14,11 +15,9 @@ export default function ProblemSection() {
             <div className={styles.container}>
                 <div className={styles.header} data-aos="fade-up">
                     <h2 className={styles.title}>{t.problem.title}</h2>
-                    <p
+                    <SafeHTML
+                        html={t.problem.subtitle}
                         className={styles.subtitle}
-                        dangerouslySetInnerHTML={{
-                            __html: t.problem.subtitle,
-                        }}
                     />
                 </div>
 
@@ -31,14 +30,18 @@ export default function ProblemSection() {
                             data-aos-delay={index * 100}
                         >
                             <div className={styles.cardIcon}>
-                                <img src={icons[index]} alt={item.title} />
+                                <Image
+                                    src={icons[index]}
+                                    alt={item.title}
+                                    width={48}
+                                    height={48}
+                                    loading="lazy"
+                                />
                             </div>
                             <h3 className={styles.cardTitle}>{item.title}</h3>
-                            <p
+                            <SafeHTML
+                                html={item.description}
                                 className={styles.cardDescription}
-                                dangerouslySetInnerHTML={{
-                                    __html: item.description,
-                                }}
                             />
                         </div>
                     ))}
@@ -47,4 +50,6 @@ export default function ProblemSection() {
         </section>
     );
 }
+
+export default memo(ProblemSection);
 

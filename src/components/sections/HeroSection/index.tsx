@@ -1,13 +1,12 @@
 "use client";
 
+import { memo } from "react";
 import Link from "next/link";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/constants/translations";
+import { useTranslation } from "@/hooks/useTranslation";
 import styles from "./HeroSection.module.scss";
 
-export default function HeroSection() {
-    const { language } = useLanguage();
-    const t = translations[language];
+function HeroSection() {
+    const t = useTranslation();
 
     return (
         <section className={styles.hero}>
@@ -47,3 +46,5 @@ export default function HeroSection() {
         </section>
     );
 }
+
+export default memo(HeroSection);

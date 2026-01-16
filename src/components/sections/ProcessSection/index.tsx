@@ -1,13 +1,12 @@
 "use client";
 
+import { memo } from "react";
 import Link from "next/link";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/constants/translations";
+import { useTranslation } from "@/hooks/useTranslation";
 import styles from "./ProcessSection.module.scss";
 
-export default function ProcessSection() {
-    const { language } = useLanguage();
-    const t = translations[language];
+function ProcessSection() {
+    const t = useTranslation();
 
     return (
         <section id="process" className={styles.section}>
@@ -57,3 +56,5 @@ export default function ProcessSection() {
         </section>
     );
 }
+
+export default memo(ProcessSection);

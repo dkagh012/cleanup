@@ -1,14 +1,12 @@
 "use client";
 
 import { useState, FormEvent, useEffect, useRef } from "react";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/constants/translations";
+import { useTranslation } from "@/hooks/useTranslation";
+import SafeHTML from "@/components/common/SafeHTML";
 import styles from "./page.module.scss";
 
 export default function EstimatePage() {
-    const { language } = useLanguage();
-    const t = (translations[language] ||
-        translations.ko) as typeof translations.ko;
+    const t = useTranslation();
 
     const [formData, setFormData] = useState({
         // 기본 정보
@@ -203,11 +201,10 @@ export default function EstimatePage() {
                         <div className={styles.modalContent}>
                             {t.estimate.modal.content.map(
                                 (text: string, index: number) => (
-                                    <p
+                                    <SafeHTML
                                         key={index}
-                                        dangerouslySetInnerHTML={{
-                                            __html: text,
-                                        }}
+                                        html={text}
+                                        className={styles.modalText}
                                     />
                                 )
                             )}

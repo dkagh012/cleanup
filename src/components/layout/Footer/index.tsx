@@ -1,19 +1,25 @@
 "use client";
 
-import { useLanguage } from "@/contexts/LanguageContext";
-import { translations } from "@/constants/translations";
+import { memo } from "react";
+import Image from "next/image";
+import { useTranslation } from "@/hooks/useTranslation";
 import styles from "./Footer.module.scss";
 import logo from "@/app/images/logo.png";
 
-export default function Footer() {
-    const { language } = useLanguage();
-    const t = translations[language];
+function Footer() {
+    const t = useTranslation();
 
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>
                 <div className={styles.logo}>
-                    <img src={logo.src} alt="GESUN" />
+                    <Image
+                        src={logo}
+                        alt="GESUN"
+                        width={120}
+                        height={40}
+                        loading="lazy"
+                    />
                 </div>
                 <div className={styles.info}>
                     <p>{t.footer.email}</p>
@@ -23,3 +29,5 @@ export default function Footer() {
         </footer>
     );
 }
+
+export default memo(Footer);
